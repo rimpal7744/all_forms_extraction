@@ -1,0 +1,15 @@
+uvicorn~=0.21.1
+numpy~=1.24.2
+fastapi~=0.95.0
+paddleocr~=2.6.1.3
+pdf2image~=1.16.3
+pandas~=1.5.3
+pdfplumber~=0.8.0
+opencv-python~=4.6.0.66
+Flask~=2.2.3
+PyPDF2~=2.10.9
+paddlepaddle
+camelot-py
+tabula-py
+python-multipart
+pytesseract
