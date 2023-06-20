@@ -34,7 +34,7 @@ async def create_upload_file(file: UploadFile = File(...)):
     form33regexp = re.compile(r'(FORM 33)|(FORM33)')
     form26regexp = re.compile(r'(FORM 26)|(FORM26)|(FORM 25)|(FORM25)|(Form 26)|(Form 25)')
     form1449regexp = re.compile(r'(FORM 1449)|(FORM1449)')
-    form1155regexp = re.compile(r'(FORM 1155)|(FORM1155)')
+    form1155regexp = re.compile(r'(FORM 1155)|(FORM1155)|(F0RM 1155)|(F0RM1155)')
 
     Parse=False
     final_result={}
@@ -42,7 +42,7 @@ async def create_upload_file(file: UploadFile = File(...)):
     for line in result:
         if 'STANDARD FORM' in str(line[1][0]).upper() :
             form_type=str(line[1][0])
-        elif 'DD FORM' in str(line[1][0]).upper():
+        elif ('DD FORM' in str(line[1][0]).upper()) or ('DD F0RM' in str(line[1][0]).upper()):
             form_type = str(line[1][0])
     #checking form type and implement method accordingly
 
