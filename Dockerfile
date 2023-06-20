@@ -11,4 +11,5 @@ RUN pip install -r requirement.txt
 
 COPY . .
 #CMD ["python /app/main.py"]
-CMD [ "python", "main.py"]
+#CMD [ "python", "main.py"]
+CMD uvicorn main:app ---host 0.0.0.0 --workers 4

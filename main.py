@@ -84,7 +84,6 @@ async def create_upload_file(file: UploadFile = File(...)):
             if Amendmentregexp.search(line[1][0]) and Amendmentregexp2.search(line[1][0]):
                 print('30form')
                 final_result = mains30(result)
-    print('yessss')
     os.remove(file_location)
     if final_result=={}:
         final_result={'Invalid Form Type'}
@@ -92,5 +91,3 @@ async def create_upload_file(file: UploadFile = File(...)):
 
 
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=6000,workers=4)
