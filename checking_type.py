@@ -27,7 +27,6 @@ def type_of_pdf(file_name):
     if count>2 or cid==True:
         images = convert_from_path(file_name)
         pdf_writer = PyPDF2.PdfFileWriter()
-        pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
         for image in images:
             page = pytesseract.image_to_pdf_or_hocr(image, extension='pdf',config='-c tessedit_create_pdf=1')
             pdf = PyPDF2.PdfFileReader(io.BytesIO(page))
