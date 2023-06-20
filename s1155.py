@@ -187,10 +187,10 @@ def get_first_page(result):
                                 issue_code = "CODE: " + splited[1].replace('|', '')
                         if issue_code == '':
                             if len(splited_2) == 2:
-                                if splited[0] == 'CODE':
-                                    issue_code = "CODE: " + splited[1].replace('|', '')
+                                if splited_2[0] == 'CODE':
+                                    issue_code = "CODE: " + splited_2[1].replace('|', '')
                                 elif splited[0] == 'Code':
-                                    issue_code = "CODE: " + splited[1].replace('|', '')
+                                    issue_code = "CODE: " + splited_2[1].replace('|', '')
                         if issue_code == '':
                             issued_string = result[present + 2][1][0]
                             digit = 0

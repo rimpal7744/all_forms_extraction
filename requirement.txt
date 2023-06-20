@@ -12,4 +12,4 @@ paddlepaddle
 camelot-py
 tabula-py
 python-multipart
-pytesseract
+tesseract-ocr
