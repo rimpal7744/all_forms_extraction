@@ -8,7 +8,9 @@ RUN apt-get install poppler-utils -y
 
 COPY requirement.txt requirement.txt
 RUN pip install -r requirement.txt
-
+RUN apt install tesseract-ocr -y
+RUN apt install libtesseract-dev -y
+RUN apt install poppler-utils
 COPY . .
 #CMD ["python /app/main.py"]
 #CMD [ "python", "main.py"]
