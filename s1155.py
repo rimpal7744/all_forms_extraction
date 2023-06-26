@@ -1,4 +1,6 @@
 import json
+import os
+
 import pytesseract
 import PyPDF2
 import pdfplumber
@@ -490,6 +492,9 @@ def get_tables_method(pdf_path, pages):
         pass
 
     for item_dict in items:
+        supplies_text=item_dict['supplies_or_services']
+        supplies_text = os.linesep.join([s for s in supplies_text.splitlines() if s])
+        item_dict['supplies_or_services']=supplies_text.replace('\n',' ')
         item_dict['amount'] = re.sub(r'\s*[A-Za-z$]+\b', '', item_dict['amount'])
 
     return items

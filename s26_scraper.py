@@ -1,4 +1,6 @@
 import json
+import os
+
 import pdfplumber
 import camelot
 import re
@@ -256,6 +258,9 @@ def get_table(pdf_path,pages):
         except Exception as e:
             pass
     for item_dict in items:
+        supplies_text = item_dict['supplies_or_services']
+        supplies_text = os.linesep.join([s for s in supplies_text.splitlines() if s])
+        item_dict['supplies_or_services'] = supplies_text.replace('\n', ' ')
         item_dict['amount'] = re.sub(r'\s*[A-Za-z$]+\b', '', item_dict['amount'])
 
     return items

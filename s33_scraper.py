@@ -1,4 +1,6 @@
 import json
+import os
+
 import pandas as pd
 import tabula
 import re
@@ -343,6 +345,9 @@ def first_method(pdf_path,pages):
     except:
         pass
     for item_dict in items:
+        supplies_text = item_dict['supplies_or_services']
+        supplies_text = os.linesep.join([s for s in supplies_text.splitlines() if s])
+        item_dict['supplies_or_services'] = supplies_text.replace('\n', ' ')
         item_dict['amount'] = re.sub(r'\s*[A-Za-z$]+\b', '', item_dict['amount'])
 
     return items
@@ -439,6 +444,9 @@ def method2(pdf_path,pages):
         i['item']=item_value_updated
 
     for item_dict in items_list:
+        supplies_text = item_dict['supplies_or_services']
+        supplies_text = os.linesep.join([s for s in supplies_text.splitlines() if s])
+        item_dict['supplies_or_services'] = supplies_text.replace('\n', ' ')
         item_dict['amount'] = re.sub(r'\s*[A-Za-z$]+\b', '', item_dict['amount'])
 
     return items_list
@@ -491,6 +499,9 @@ def third_method(pdf_path,pages):
     except:
         pass
     for item_dict in items:
+        supplies_text = item_dict['supplies_or_services']
+        supplies_text = os.linesep.join([s for s in supplies_text.splitlines() if s])
+        item_dict['supplies_or_services'] = supplies_text.replace('\n', ' ')
         item_dict['amount'] = re.sub(r'\s*[A-Za-z$]+\b', '', item_dict['amount'])
     return items
 

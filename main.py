@@ -26,9 +26,9 @@ async def create_upload_file(file: UploadFile = File(...)):
     images = convert_from_path(file_location,last_page=1)
 
     pix = np.array(images[0])
-    result = ocr.ocr(pix, cls=True,)
+    result = ocr.ocr(pix, cls=True)
     result = result[0]
-    type_of_pdf(file_location)
+
     #Different regex to detect which form it is
     form30regexp = re.compile(r'(FORM 30)|(FORM30)')
     form33regexp = re.compile(r'(FORM 33)|(FORM33)')
@@ -39,41 +39,43 @@ async def create_upload_file(file: UploadFile = File(...)):
     Parse=False
     final_result={}
     form_type=''
+
     for line in result:
-        if 'STANDARD FORM' in str(line[1][0]).upper() :
+        if 'STANDARD FORM' in str(line[1][0]).upper():
             form_type=str(line[1][0])
         elif ('DD FORM' in str(line[1][0]).upper()) or ('DD F0RM' in str(line[1][0]).upper()):
             form_type = str(line[1][0])
     #checking form type and implement method accordingly
-
-    if form26regexp.search(form_type):
-        print('26form')
-        final_result=mains26(file_location,result)
-        Parse=True
-
-
-    elif form30regexp.search(form_type):
-        print('30form')
-        final_result=mains30(result)
-        Parse=True
+    if form_type != '':
+        type_of_pdf(file_location)
+        if form26regexp.search(form_type):
+            print('26form')
+            final_result=mains26(file_location,result)
+            Parse=True
 
 
-    elif form33regexp.search(form_type) :
-        print('33form')
-        final_result=main(file_location,result)
-        # final_result=main33(file_location,result)
-        Parse=True
+        elif form30regexp.search(form_type):
+            print('30form')
+            final_result=mains30(result)
+            Parse=True
 
-    elif form1449regexp.search(form_type):
-        print('1449form')
-        final_result=main_1449(result)
-        Parse=True
 
-    elif form1155regexp.search(form_type.upper()):
-        print('form1155')
-        final_result=mains1155(file_location,result)
-    else:
-        pass
+        elif form33regexp.search(form_type) :
+            print('33form')
+            final_result=main(file_location,result)
+            # final_result=main33(file_location,result)
+            Parse=True
+
+        elif form1449regexp.search(form_type):
+            print('1449form')
+            final_result=main_1449(result)
+            Parse=True
+
+        elif form1155regexp.search(form_type.upper()):
+            print('form1155')
+            final_result=mains1155(file_location,result)
+        else:
+            pass
 
 
     #in some cases form type not detected in sf30, this execution will take place
@@ -84,6 +86,7 @@ async def create_upload_file(file: UploadFile = File(...)):
             if Amendmentregexp.search(line[1][0]) and Amendmentregexp2.search(line[1][0]):
                 print('30form')
                 final_result = mains30(result)
+
     os.remove(file_location)
     if final_result=={}:
         final_result={'Invalid Form Type'}
